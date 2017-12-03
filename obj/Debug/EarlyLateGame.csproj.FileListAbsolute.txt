@@ -43,3 +43,6 @@ C:\Users\Pavel\Desktop\EarlyLateGame\obj\Debug\EarlyLateGame.csprojResolveAssemb
 C:\Users\Pavel\Desktop\EarlyLateGame\obj\Debug\EarlyLateGame.Form1.resources
 C:\Users\Pavel\Desktop\EarlyLateGame\obj\Debug\EarlyLateGame.Properties.Resources.resources
 C:\Users\Pavel\Desktop\EarlyLateGame\obj\Debug\EarlyLateGame.csproj.GenerateResource.Cache
+C:\Users\Pavel\Desktop\MojeHry\Adam Projects\EarlyLateGame\bin\Debug\EarlyLateGame.exe.config
+C:\Users\Pavel\Desktop\MojeHry\Adam Projects\EarlyLateGame\obj\Debug\EarlyLateGame.exe
+C:\Users\Pavel\Desktop\MojeHry\Adam Projects\EarlyLateGame\obj\Debug\EarlyLateGame.pdb
