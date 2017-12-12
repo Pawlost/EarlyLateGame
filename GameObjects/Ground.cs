@@ -1,93 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using System.Windows.Forms;
+﻿using System.Drawing;
+using EarlyLateGame.Game;
+using EarlyLateGame.Entities;
 
-namespace EarlyLateGame
+namespace EarlyLateGame.GameObjects
 {
     class Ground
     {
-        private int posX;
-        private int posY;
-        private int width;
-        private int height;
-        private Color color;
-        private bool visible;
+        public int posX;
+        public int posY;
 
-        public Ground(int posX, int posY, int width,int height, Color color,bool visible)
+        public bool isPlayerHere;
+        public bool isObjectHere;
+
+        public Player player;
+        public Tree tree;
+        public GameGraphics gg;
+        public ViewZone viewZone;
+
+        public Ground(int posX, int posY)
         {
+            gg = new GameGraphics(GameVariables.GroundColor, posX, posY, GameVariables.groundSquareSize, false);
+
             this.posX = posX;
-            this.posY = posY;
-            this.visible = visible;
-            this.color = color;
-            this.bh = new SolidBrush(color);
-            this.height = height;
-            this.width = width;
+            this.posY = posY;   
         }
-        public virtual void vykresleni(Graphics g)
+        public virtual void PlayerOnGround(Player player, Graphics g)
         {
-            if (visible)
-            {                
-                g.FillRectangle(this.bh, posX *60 + ((60 - this.width) /2 ) , posY * 60 + (60 - this.height) / 2 , this.width, this.height);
+            if (player != null)
+            {
+                player.gg.filling = GameVariables.PlayerColor;
+                player.gg.CentreRenderFill(g);
+                this.player = player;
+                isPlayerHere = true;
             }
             else
             {
-                g.FillRectangle(this.mrtvy, posX * 60 + ((60 - this.width) / 2), posY * 60 + (60 - this.height) / 2 , this.width, this.height);
+                this.player.gg.filling = GameVariables.GroundColor;
+                this.player.gg.CentreRenderFill(g);
+                this.player.gg.RenderSelect(g, 3);
+                this.player = null;
+                isPlayerHere = false;
             }
         }
-        public void setBrush(Color color)
+        public virtual void GameObjectOnGround(bool isObjectHere, Graphics g)
         {
-            this.bh = new SolidBrush(color);
+            this.isObjectHere = isObjectHere;
+            if (isObjectHere) {
+                if (tree != null) {
+                    tree.gg.filling = GameVariables.TreeColor;
+                    tree.gg.CentreRenderFill(g);
+                }
+            }
         }
-        public virtual void setVisible(bool visible)
-        {
-            this.visible = visible;
-        }
-        public void setPosX(int posX)
-        {
-            this.posX = this.posX + posX;
-        }
-        public void setPosY(int posY)
-        {
-            this.posY = this.posY + posY;
-        }
-        public int getPosX()
-        {
-            return (this.posX);
-        }
-        public int getPosY()
-        {
-            return (this.posY);
-        }
-
-        public bool getVisible()
-        {
-            return this.visible;
-        }
-        public void setToChangeValuPosX(int posX)
-        {
-            this.posX =  posX;
-        }
-        public void setToChangeValuPosY(int posY)
-        {
-            this.posY = posY;
-        }
-        public virtual void interact(Nepritel hrac)
-        {
-            MessageBox.Show("interagujes se ctvereckem", null, MessageBoxButtons.YesNo);
-        }
-            public void setColor()
-        {
-
-        }
-        public Color getColor()
-        {
-            return this.color;
-        }
-
-
     }
 }

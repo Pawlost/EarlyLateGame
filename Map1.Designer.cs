@@ -2,9 +2,7 @@
 {
     partial class Map1
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
+
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
@@ -39,11 +37,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(295, 20);
             this.textBox1.TabIndex = 0;
-            this.textBox1.Click += new System.EventHandler(this.textBox1_Click);
-            this.textBox1.CursorChanged += new System.EventHandler(this.textBox1_CursorChanged);
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
-            this.textBox1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.textBox1_PreviewKeyDown);
             // 
             // debugText
             // 
@@ -56,21 +50,20 @@
             this.debugText.Size = new System.Drawing.Size(319, 536);
             this.debugText.TabIndex = 1;
             this.debugText.Visible = false;
-            this.debugText.TextChanged += new System.EventHandler(this.debugText_TextChanged);
             // 
-            // Form1
+            // Map1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1148, 684);
+            this.ClientSize = new System.Drawing.Size(1370, 750);
             this.Controls.Add(this.debugText);
             this.Controls.Add(this.textBox1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "Map1";
+            this.Text = "Map1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.Form1_Load_1);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
-            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseClick);
+            this.Load += new System.EventHandler(this.Map1_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Map1_Paint);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(Map1_MouseClick);
             this.ResumeLayout(false);
             this.PerformLayout();
 

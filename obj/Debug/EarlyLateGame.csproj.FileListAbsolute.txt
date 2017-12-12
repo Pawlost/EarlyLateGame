@@ -50,3 +50,5 @@ C:\Users\Pavel\Desktop\MojeHry\Adam Projects\EarlyLateGame\obj\Debug\EarlyLateGa
 C:\Users\Pavel\Desktop\MojeHry\Adam Projects\EarlyLateGame\obj\Debug\EarlyLateGame.Map1.resources
 C:\Users\Pavel\Desktop\MojeHry\Adam Projects\EarlyLateGame\obj\Debug\EarlyLateGame.Properties.Resources.resources
 C:\Users\Pavel\Desktop\MojeHry\Adam Projects\EarlyLateGame\obj\Debug\EarlyLateGame.csproj.GenerateResource.Cache
+C:\Users\Pavel\Desktop\MojeHry\Adam Projects\EarlyLateGame\bin\Debug\EarlyLateGame.exe
+C:\Users\Pavel\Desktop\MojeHry\Adam Projects\EarlyLateGame\bin\Debug\EarlyLateGame.pdb

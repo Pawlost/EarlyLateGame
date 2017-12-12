@@ -46,24 +46,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Etities\Early.cs" />
+    <Compile Include="Entities\BasicEntity.cs" />
+    <Compile Include="Entities\Player.cs" />
     <Compile Include="GameObjects\Ground.cs" />
-    <Compile Include="Game\BasicMap.cs" />
+    <Compile Include="GameObjects\ViewZone.cs" />
     <Compile Include="Game\GameGraphics.cs" />
+    <Compile Include="Game\GameVariables.cs" />
+    <Compile Include="Game\PlayerControl.cs" />
     <Compile Include="Map1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Map1.Designer.cs">
       <DependentUpon>Map1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Etities\EnemyMob.cs" />
-    <Compile Include="Etities\Late.cs" />
-    <Compile Include="Etities\Monster.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Entities\EnemyMob.cs" />
+    <Compile Include="Entities\Monster.cs" />
+    <Compile Include="Game\MainProgramStarter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GameObjects\Strom.cs" />
+    <Compile Include="GameObjects\Tree.cs" />
     <EmbeddedResource Include="Map1.resx">
       <DependentUpon>Map1.cs</DependentUpon>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Map11.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
