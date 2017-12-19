@@ -12,10 +12,7 @@ namespace EarlyLateGame.Entities
         public int choppedTree = 0;
         public bool isSelected = false;
         private static int damage = GameVariables.playerAverageDamage;
-        private Ground[,] overallMap = new Ground[10,10];
-
-        //Type is Early or Late
-        private string playerType;
+        private Ground[,] overallMap = new Ground[10, 10];
 
         public Player(int posX, int posY) : base(posX, posY, entitySize: GameVariables.entitiSquareSize, lifeColor: GameVariables.PlayerColor, deathColor: GameVariables.DeadEntity, visible: true)
         {
@@ -25,7 +22,6 @@ namespace EarlyLateGame.Entities
 
         public int Attack()
         {
-            MessageBox.Show("Interaguješ s nepřítelem", null, MessageBoxButtons.YesNo);
             return damage;
         }
         public virtual void Select(bool isSelected, Ground[,] overallMap, Graphics g)
@@ -39,7 +35,8 @@ namespace EarlyLateGame.Entities
                 gg.RenderSelect(g, 3);
                 View(g);
             }
-            else {
+            else
+            {
                 this.isSelected = false;
                 gg.filling = GameVariables.PlayerColor;
                 gg.RenderSelect(g, 3);
@@ -73,20 +70,14 @@ namespace EarlyLateGame.Entities
         }
         public virtual void View(Graphics g)
         {
-            if (isSelected)
+            for (int y = -1; y < 2; y++)
             {
-                for (int y = -1; y < 2; y++)
+                for (int x = -1; x < 2; x++)
                 {
-                    for (int x = -1; x < 2; x++)
+                    if (posX + x >= 0 && posY + y >= 0 && posX + x < GameVariables.mapSize && posY + y < GameVariables.mapSize && isSelected)
                     {
-                        if (posX + x >= 0 && posY + y >= 0 && posX + x < GameVariables.mapSize && posY + y < GameVariables.mapSize)
-                        {
-                            if (posX + x != posX || posY + y != posY)
-                                overallMap[posX + x, posY + y].viewZone.CanView(g, true);
-                        }
-                        else if (posX + x <= GameVariables.mapSize && posY + y >= GameVariables.mapSize) {
-
-                        }
+                        if (posX + x != posX || posY + y != posY)
+                            overallMap[posX + x, posY + y].viewZone.CanView(g, true);
                     }
                 }
             }

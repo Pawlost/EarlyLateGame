@@ -25,14 +25,18 @@ namespace EarlyLateGame.Entities
             this.entitySize = entitySize;
 
             gg = new GameGraphics(lifeColor, posX, posY, entitySize, false);
-            SetPosition(posX,posY);
+            //SetPosition(posX,posY);
         }
 
         public void IsDying()
         {
-            if (dead || !visible)
+            if (dead)
             {
                 gg.filling = deathColor;
+            }
+            else if (!visible)
+            {
+                gg.filling = GameVariables.InVisibleColor;
             }
         }
 

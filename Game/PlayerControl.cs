@@ -10,28 +10,49 @@ namespace EarlyLateGame.Game
         public Player player;
         private Point playerLocation;
 
+        private int helpPosX;
+        private int helpPosY;
+
         public PlayerControl(Player player)
         {
             this.player = player;    
         }
+        public virtual void Attack(Ground[,] overallMap,Graphics g)
+        {
+            if (overallMap[helpPosX, helpPosY].tree.dead == false && overallMap[helpPosX, helpPosY].tree != null)
+            {
+                overallMap[helpPosX, helpPosY].tree.Cut(player, g);
+            }
+            else if (overallMap[helpPosX, helpPosY].tree != null)
+            {
+                overallMap[helpPosX, helpPosY].isObjectHere = false;
+                overallMap[helpPosX, helpPosY].tree = null;
+            }
+        }
         public virtual void SelectPlayer(Ground[,] overallMap, Graphics g, Point mouseLocation)
         {
-            float posX = player.gg.centrePositionF.X + player.gg.centrePositionF.Width;
-            float posY = player.gg.centrePositionF.Y + player.gg.centrePositionF.Height;
-            if (mouseLocation.X > player.gg.centrePositionF.X && mouseLocation.X < posX && mouseLocation.Y > player.gg.centrePositionF.Y && mouseLocation.Y < posY)
+            if (PlayerLocation(mouseLocation))
             {
-
-                if (overallMap[player.posX, player.posY].player.isSelected == false)
+                if (!overallMap[player.posX, player.posY].player.isSelected)
                 {
+                    ReworkMap(overallMap, g);
                     overallMap[player.posX, player.posY].player.Select(true, overallMap, g);
                 }
                 else
                 {
-                    overallMap[player.posX, player.posY].player.Select(false, overallMap, g);
+                    ReworkMap(overallMap, g);
+                    overallMap[player.posX, player.posY].player.Select(false, overallMap, g);    
                 }
             }
         }
-        public virtual void MovePlayer(Ground[,] overallMap, Point mouseLocation, Graphics g)
+        public bool PlayerLocation(Point mouseLocation)
+        {
+            float posX = player.gg.centrePositionF.X + player.gg.centrePositionF.Width;
+            float posY = player.gg.centrePositionF.Y + player.gg.centrePositionF.Height;
+            return mouseLocation.X > player.gg.centrePositionF.X && mouseLocation.X < posX && mouseLocation.Y > player.gg.centrePositionF.Y && mouseLocation.Y < posY;
+        }
+
+        public bool CanMove(Ground[,] overallMap, Point mouseLocation)
         {
             for (int y = 0; y < GameVariables.mapSize; y++)
             {
@@ -46,17 +67,30 @@ namespace EarlyLateGame.Game
                     {
                         if (view.visible && overallMap[x, y].isPlayerHere == false && overallMap[x, y].isObjectHere == false)
                         {
-                            player.Select(false, overallMap, g);
-                            overallMap[player.posX, player.posY].PlayerOnGround(null, g);
-                            ReworkMap(overallMap, g);
-                            player.MoveToPosition(overallMap[x, y].posX, overallMap[x, y].posY, g);
-                            player.gg.CentreRenderFill(g);
-                            overallMap[x, y].PlayerOnGround(player, g);
+                            helpPosX = x;
+                            helpPosY = y;
+                            return true;
+                        }
+                        else                
+                        {
+                            helpPosX = x;
+                            helpPosY = y;
                         }
                     }
                 }
             }
+            return false;
         }
+        public virtual void MovePlayer(Ground[,] overallMap, Graphics g)
+        {
+            player.Select(false, overallMap, g);
+            overallMap[player.posX, player.posY].PlayerOnGround(null, g);
+            ReworkMap(overallMap, g);
+            player.MoveToPosition(overallMap[helpPosX, helpPosY].posX, overallMap[helpPosX, helpPosY].posY, g);
+            player.gg.CentreRenderFill(g);
+            overallMap[helpPosX, helpPosY].PlayerOnGround(player, g);
+        }
+
         public void ReworkMap(Ground[,] overallMap, Graphics g)
         {
             for (int y = 0; y < GameVariables.mapSize; y++)
@@ -64,53 +98,18 @@ namespace EarlyLateGame.Game
                 for (int x = 0; x < GameVariables.mapSize; x++)
                 {
                     overallMap[x, y].viewZone.CanView(g, false);
+                  
                     if (overallMap[x, y].isPlayerHere)
                     {
                         overallMap[x, y].PlayerOnGround(overallMap[x, y].player, g);
-                    }
+                    }                   
                     else if (overallMap[x, y].isObjectHere)
                     {
                         overallMap[x, y].GameObjectOnGround(true, g);
                     }
                 }
             }
-        }
-
-        public void FindObject(MouseEventArgs control, Ground[,] overallMap, Graphics g) {
-            if (control.Button == MouseButtons.Left)
-            {
-                for (int y = 0; y < GameVariables.mapSize; y++)
-                {
-                    for (int x = 0; x < GameVariables.mapSize; x++)
-                    {
-                        Ground ground = overallMap[x, y];
-
-                        float posX = ground.gg.centrePositionF.X + ground.gg.centrePositionF.Width;
-                        float posY = ground.gg.centrePositionF.Y + ground.gg.centrePositionF.Height;
-
-                        if (control.Location.X > ground.gg.centrePositionF.X && control.Location.X < posX && control.Location.Y > ground.gg.centrePositionF.Y && control.Location.Y < posY)
-                        {
-                            if (ground.isPlayerHere)
-                            {
-                                if (overallMap[x, y].player.isSelected == false)
-                                {
-                                    overallMap[x, y].player.Select(true, overallMap, g);
-                                }
-                                else
-                                {
-                                    overallMap[x, y].player.Select(false, overallMap, g);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        public void newPlayerLocation(int posX, int posY)
-        {
-            player.posX = posX;
-            player.posY = posY;
-            playerLocation = new Point(posX, posY);
+            player.isSelected = false;
         }
     }
 }

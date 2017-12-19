@@ -4,7 +4,8 @@ using System.Windows.Forms;
 using EarlyLateGame.Entities;
 using EarlyLateGame.Game;
 using EarlyLateGame.GameObjects;
-
+using System.Collections.Generic;
+//Primery code
 namespace EarlyLateGame
 {
     public partial class Map1 : Form
@@ -12,22 +13,17 @@ namespace EarlyLateGame
         public static PaintEventArgs p;
         private PlayerControl pc;
         public Graphics gameGraphic;
-        private Player early;
-        private Player late;
+        private Player player;
+        private Player enemyPlayer;
         private static GameGraphics background = new GameGraphics(GameVariables.BackgroundColor, 0, 0, GameVariables.mapSize * (GameVariables.groundSquareSize + GameVariables.borderSize), true);
         Ground[,] OverallMap = new Ground[GameVariables.mapSize, GameVariables.mapSize];
+        List<Tree> Wood = new List<Tree>();
 
         public Map1()
         {
             InitializeComponent();
-            //vrstva2[0, 1] =  new Prisera(2, 1);
-            //vrstva2[2, 0] =  new Prisera(2, 2);
-
-            //  hrac1 = new Hrac(60, 60);
-            /*
-             th = new Thread(new ThreadStart( vykresleniMapyATD));
-            th.Name = "grafika";
-            th.Start();*/
+            CreateEntities();
+            CreateMap();
         }
         public void CreateMap()
         {
@@ -41,7 +37,7 @@ namespace EarlyLateGame
                 }
             }
         }
-        public void Render_map()
+        public void Render_map(Graphics gameGraphic)
         {
             for (int y = 0; y < GameVariables.mapSize; y++)
             {
@@ -55,43 +51,58 @@ namespace EarlyLateGame
         public void Map1_Paint(object sender, PaintEventArgs e)
         {
             gameGraphic = CreateGraphics();
-            CreateMap();
-            background.RenderFill(gameGraphic);
-            Render_map();
-            CreateEntities();
+            background.RenderFill(gameGraphic);           
+            Render_map(gameGraphic);
+            RenderEntitiesPosition(gameGraphic);
         }
         public void CreateEntities()
         {
-            
-            Tree tree = new Tree(3,5);
-            OverallMap[tree.posX, tree.posY].tree = tree;
-            OverallMap[tree.posX, tree.posY].GameObjectOnGround(true, gameGraphic);
+            Wood.Add(new Tree(3, 5));
+            Wood.Add(new Tree(6, 5));
 
-            Tree tree2 = new Tree(6, 5);
-            OverallMap[tree.posX, tree.posY].tree = tree;
-            OverallMap[tree.posX, tree.posY].GameObjectOnGround(true, gameGraphic);
-
-    
-            early = new Player(0, 0);
-            OverallMap[early.posX, early.posY].PlayerOnGround(early, gameGraphic);
-
-            late = new Player(7, 7);
-            OverallMap[late.posX, late.posY].PlayerOnGround(late, gameGraphic);
+            player = new Player(0, 0);
+            enemyPlayer = new Player(6, 6);
         }
+        public virtual void RenderEntitiesPosition(Graphics gameGraphic)
+        {
+            //Trees
+            foreach (Tree tree in Wood)
+            {
+                OverallMap[tree.posX, tree.posY].tree = tree;
+                OverallMap[tree.posX, tree.posY].GameObjectOnGround(true, gameGraphic);
+            }
+            //Player
+            OverallMap[player.posX, player.posY].PlayerOnGround(player, gameGraphic);
+            //EnemyPlayer
+            OverallMap[enemyPlayer.posX, enemyPlayer.posY].PlayerOnGround(enemyPlayer, gameGraphic);
+        }    
         ////////////////////////////////////
         public static void setText(string text)
         {
         }
         private void Map1_MouseClick(object sender, MouseEventArgs control)
         {
-            pc = new PlayerControl(early);
-            if (control.Button == MouseButtons.Left && pc.player.isSelected == false)
+            pc = new PlayerControl(player);
+            int overallMapSize = GameVariables.mapSize * (GameVariables.groundSquareSize + GameVariables.borderSize);
+            if (control.Button == MouseButtons.Left && control.Location.X <= overallMapSize && control.Location.Y <= overallMapSize)
             {
-                pc.SelectPlayer(OverallMap, gameGraphic, control.Location);
-            }
-            if (control.Button == MouseButtons.Left && pc.player.isSelected == true)
-            {
-                pc.MovePlayer(OverallMap, control.Location, gameGraphic);
+                if (pc.player.isSelected == false)
+                {
+                    pc.SelectPlayer(OverallMap, gameGraphic, control.Location);
+                } else
+                {
+                    if (pc.CanMove(OverallMap, control.Location) == true && pc.PlayerLocation(control.Location) == false)
+                    {
+                        pc.MovePlayer(OverallMap, gameGraphic);
+                    }else if (pc.PlayerLocation(control.Location) == true)
+                    {
+                        pc.SelectPlayer(OverallMap, gameGraphic, control.Location);
+                    }
+                     else
+                    {
+                        pc.Attack(OverallMap, gameGraphic);
+                    }
+                }
             }
         }
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)

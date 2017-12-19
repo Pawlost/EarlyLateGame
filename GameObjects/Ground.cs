@@ -12,6 +12,8 @@ namespace EarlyLateGame.GameObjects
         public bool isPlayerHere;
         public bool isObjectHere;
 
+        protected bool isDestructable =false;
+
         public Player player;
         public Tree tree;
         public GameGraphics gg;

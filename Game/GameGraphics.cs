@@ -4,42 +4,42 @@ using System.Windows.Forms;
 
 namespace EarlyLateGame.Game
 {
-    //also for posx posY * 60 + (60 - this.height) / 2
     //Color.FromArgb(125,0,0,0)); soo cool
     public class GameGraphics
     {
-        private static float groundSize = GameVariables.groundSquareSize;
-        public RectangleF centrePositionF;
-        public RectangleF positionSizeF;
-        public Rectangle rectangleObjectI;
-        public Color filling;
+        private static float groundSize = GameVariables.groundSquareSize; //taking value from global values
+        public RectangleF centrePositionF; //position for entities in center of field
+        public RectangleF positionSizeF; //position of rectangle from top-left side (float rectangel)
+        //public Rectangle rectangleObjectI;//retype positionSizeF to int rectangle(int rectangle)
+        public Color filling; //filling of rectagle
 
         private int posX;
         private int posY;
-        private int squareSize;
+        private int rectangleSize;
 
-        public GameGraphics(Color filling, int posX, int posY, int squareSize, bool renderBackground)
+        public GameGraphics(Color filling, int posX, int posY, int rectangleSize, bool renderBackground)
         { 
             this.posX = posX;
             this.posY = posY;
             this.filling = filling;
-            this.squareSize = squareSize;
+            this.rectangleSize = rectangleSize;
 
             if (renderBackground)
-                positionSizeF = new RectangleF(posX * (groundSize + GameVariables.borderSize), posY * (groundSize + GameVariables.borderSize), squareSize + GameVariables.borderSize, squareSize + GameVariables.borderSize);
+                //if true creates rectangle in background of map, it is used for border between grounds
+                positionSizeF = new RectangleF(posX * (groundSize + GameVariables.borderSize), posY * (groundSize + GameVariables.borderSize), rectangleSize + GameVariables.borderSize, rectangleSize + GameVariables.borderSize);
             else
-                SetRenderPositionF(posX, posY, squareSize, false);
+                SetRenderPositionF(posX, posY, rectangleSize, false);
 
-            Rectangle.Truncate(positionSizeF);
+            //Rectangle.Truncate(positionSizeF);
         }
-        public void SetRenderPositionF(int posX, int posY, int squareSize,bool isCentr) {
+        public void SetRenderPositionF(int posX, int posY, int rectangleSize, bool isCentr) {
             this.posX = posX;
             this.posY = posY;
 
-            this.squareSize = squareSize;
-            positionSizeF = new RectangleF((posX * (groundSize + GameVariables.borderSize)) + GameVariables.borderSize, (posY * (groundSize + GameVariables.borderSize)) + GameVariables.borderSize, squareSize, squareSize);
+            this.rectangleSize = rectangleSize;
+            positionSizeF = new RectangleF((posX * (groundSize + GameVariables.borderSize)) + GameVariables.borderSize, (posY * (groundSize + GameVariables.borderSize)) + GameVariables.borderSize, rectangleSize, rectangleSize);
             if (isCentr)
-                centrePositionF = new RectangleF(positionSizeF.X + (groundSize - squareSize) / 2, positionSizeF.Y + (groundSize - squareSize) / 2, squareSize, squareSize);
+                centrePositionF = new RectangleF(positionSizeF.X + (groundSize - rectangleSize) / 2, positionSizeF.Y + (groundSize - rectangleSize) / 2, rectangleSize, rectangleSize);
         }
         public virtual void RenderFill(Graphics g)
         {
@@ -47,7 +47,7 @@ namespace EarlyLateGame.Game
         }
         public virtual void CentreRenderFill(Graphics g)
         {
-            SetRenderPositionF(posX, posY, squareSize, true);
+            SetRenderPositionF(posX, posY, rectangleSize, true);
             g.FillRectangle(new SolidBrush(filling), centrePositionF);
         }
         public virtual void RenderSelect(Graphics g, int penSize) {

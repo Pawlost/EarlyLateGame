@@ -10,7 +10,6 @@ namespace EarlyLateGame.GameObjects
 {
     class ViewZone
     {
-        private bool canWalk = true;
         public GameGraphics gg;
         private Color filling;
 

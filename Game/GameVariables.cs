@@ -6,7 +6,7 @@ namespace EarlyLateGame.Game
     {
         public static int groundSquareSize = 55;
         public static int entitiSquareSize = 30;
-        public static int zoneSquareSize = 40;
+        public static int zoneSquareSize = 55;
 
 
         public static int mapSize = 10;
@@ -38,5 +38,6 @@ namespace EarlyLateGame.Game
 
         public static Color DestroyedObject = Color.Yellow;
         public static Color DeadEntity = Color.Tomato;
-     }
+        public static Color InVisibleColor = GroundColor;
+    }
 }
