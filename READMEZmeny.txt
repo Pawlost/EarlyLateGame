@@ -1,4 +1,31 @@
 NÁZEV VERZE:
+V0.00003Pawel 
+
+OBSAH TÉHLE VERZE:
+pøidání nìkterých komentáøù, optimalizace kódu
+-pøechod z vektorové grafiky na rastrovou
+
+KONKRÉTNÍ SEZNAM ZMÌN:
+- komentáøe v {
+}
+
+SPRAVENÉ BUGGY:
+
+Vytvoøené tøídy{
+}
+
+OBSAH BUDOUCÍCH VERZÍ
+-lepší UI
+-pøidání kamene
+-uložení pozice
+-interakce s nepøáteli
+-zmìny terénu
+-skilly
+-pohyb na kola
+-možný konec hry
+
+
+NÁZEV VERZE:
 V0.00002Pawel 
 
 OBSAH TÉHLE VERZE:

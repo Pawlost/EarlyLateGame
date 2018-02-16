@@ -8,25 +8,24 @@ using System.Drawing;
 
 namespace EarlyLateGame.GameObjects
 {
-    class ViewZone
+    class ControlZone
     {
         public GameGraphics gg;
-        private Color filling;
+        private Bitmap textureImage;
 
         private int posX;
         private int posY;
         public bool visible;
 
-        public ViewZone(int posX, int posY, bool visible, Color filling, int squareSize)
+        public ControlZone(int posX, int posY, bool visible, Bitmap textureImage, int entitySize)
         {
             this.posX = posX;
             this.posY = posY;
-            this.filling = filling;
+            this.textureImage = textureImage;
 
             this.visible = visible;
 
-            gg = new GameGraphics(filling, posX, posY, squareSize, false);
-
+            gg = new GameGraphics(posX, posY, entitySize, true, textureImage);
         }
         public virtual void CanView(Graphics g, bool visible)
         {

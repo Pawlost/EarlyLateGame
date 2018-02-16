@@ -10,49 +10,53 @@ namespace EarlyLateGame.Game
         private static float groundSize = GameVariables.groundSquareSize; //taking value from global values
         public RectangleF centrePositionF; //position for entities in center of field
         public RectangleF positionSizeF; //position of rectangle from top-left side (float rectangel)
-        //public Rectangle rectangleObjectI;//retype positionSizeF to int rectangle(int rectangle)
-        public Color filling; //filling of rectagle
-
+  
         private int posX;
         private int posY;
         private int rectangleSize;
+        private bool isCentred;
 
-        public GameGraphics(Color filling, int posX, int posY, int rectangleSize, bool renderBackground)
+        private TextureBrush objectTexture;
+        private Image image;
+
+        public GameGraphics(int posX, int posY, int rectangleSize, bool isCentred, Bitmap image)
         { 
-            this.posX = posX;
-            this.posY = posY;
-            this.filling = filling;
-            this.rectangleSize = rectangleSize;
-
-            if (renderBackground)
-                //if true creates rectangle in background of map, it is used for border between grounds
-                positionSizeF = new RectangleF(posX * (groundSize + GameVariables.borderSize), posY * (groundSize + GameVariables.borderSize), rectangleSize + GameVariables.borderSize, rectangleSize + GameVariables.borderSize);
-            else
-                SetRenderPositionF(posX, posY, rectangleSize, false);
-
-            //Rectangle.Truncate(positionSizeF);
+            SetRenderPositionF(posX, posY, rectangleSize, isCentred, image);
         }
-        public void SetRenderPositionF(int posX, int posY, int rectangleSize, bool isCentr) {
+        public void SetRenderPositionF(int posX, int posY, int rectangleSize, bool isCentred, Bitmap image) {
             this.posX = posX;
             this.posY = posY;
-
             this.rectangleSize = rectangleSize;
-            positionSizeF = new RectangleF((posX * (groundSize + GameVariables.borderSize)) + GameVariables.borderSize, (posY * (groundSize + GameVariables.borderSize)) + GameVariables.borderSize, rectangleSize, rectangleSize);
-            if (isCentr)
+            this.image = image;
+
+            positionSizeF = new RectangleF(posX * groundSize, posY * groundSize, rectangleSize, rectangleSize);
+            objectTexture = new TextureBrush(image, positionSizeF);
+            if (isCentred)
+            {
                 centrePositionF = new RectangleF(positionSizeF.X + (groundSize - rectangleSize) / 2, positionSizeF.Y + (groundSize - rectangleSize) / 2, rectangleSize, rectangleSize);
+                objectTexture = new TextureBrush(image, centrePositionF);
+            }
         }
         public virtual void RenderFill(Graphics g)
         {
-            g.FillRectangle(new SolidBrush(filling), positionSizeF);
+            g.FillRectangle(objectTexture, positionSizeF);
         }
         public virtual void CentreRenderFill(Graphics g)
         {
-            SetRenderPositionF(posX, posY, rectangleSize, true);
-            g.FillRectangle(new SolidBrush(filling), centrePositionF);
+            SetRenderPositionF(posX, posY, rectangleSize, true, image);
+            g.FillRectangle(objectTexture, centrePositionF);
         }
-        public virtual void RenderSelect(Graphics g, int penSize) {
-            Pen p = new Pen(filling, penSize);
-            g.DrawLine(p, centrePositionF.X, centrePositionF.Y, centrePositionF.X + centrePositionF.Width, centrePositionF.Y + centrePositionF.Height);
+        public virtual void RenderSelect(Graphics g, bool select) {
+            if (select) {
+                Pen p = new Pen(Color.Black, GameVariables.selectLineSize);
+                g.DrawLine(p, centrePositionF.X, centrePositionF.Y, centrePositionF.X + centrePositionF.Width, centrePositionF.Y + centrePositionF.Height);
+            }
+            else{
+                if (isCentred)
+                    CentreRenderFill(g);
+                else
+                    RenderFill(g);             
+            }       
         }
     }
 }

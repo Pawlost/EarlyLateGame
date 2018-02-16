@@ -5,6 +5,7 @@ using EarlyLateGame.Entities;
 using EarlyLateGame.Game;
 using EarlyLateGame.GameObjects;
 using System.Collections.Generic;
+using System.IO;
 //Primery code
 namespace EarlyLateGame
 {
@@ -32,7 +33,7 @@ namespace EarlyLateGame
                 for (int x = 0; x < GameVariables.mapSize; x++)
                 {
                     Ground newGround = new Ground(x, y);
-                    newGround.viewZone = new ViewZone(x, y, false, GameVariables.ZoneColor, GameVariables.zoneSquareSize);
+                    newGround.viewZone = new ControlZone(x, y, false, GameVariables.ZoneColor, GameVariables.zoneSquareSize);
                     OverallMap[x, y] = newGround;
                 }
             }
@@ -44,14 +45,15 @@ namespace EarlyLateGame
                 for (int x = 0; x < GameVariables.mapSize; x++)
                 {
                     OverallMap[x, y].gg.RenderFill(gameGraphic);
-                    OverallMap[x, y].viewZone = new ViewZone(x, y, false, GameVariables.ZoneColor, GameVariables.zoneSquareSize);
+                    OverallMap[x, y].viewZone = new ControlZone(x, y, false, GameVariables.ZoneColor, GameVariables.zoneSquareSize);
                 }
             }
         }
         public void Map1_Paint(object sender, PaintEventArgs e)
         {
             gameGraphic = CreateGraphics();
-            background.RenderFill(gameGraphic);           
+            background.RenderFill(gameGraphic);
+                       
             Render_map(gameGraphic);
             RenderEntitiesPosition(gameGraphic);
         }

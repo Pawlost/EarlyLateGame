@@ -17,7 +17,7 @@ namespace EarlyLateGame.GameObjects
         public Player player;
         public Tree tree;
         public GameGraphics gg;
-        public ViewZone viewZone;
+        public ControlZone viewZone;
 
         public Ground(int posX, int posY)
         {

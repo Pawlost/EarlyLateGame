@@ -11,20 +11,20 @@ namespace EarlyLateGame.Entities
         protected bool dead = false;
         public bool visible;
 
-        public Color lifeColor;
-        public Color deathColor;
         public GameGraphics gg;
+        protected Bitmap lifeImage;
+        protected Bitmap deathImage;
 
-        public BasicEntity(int posX, int posY, int entitySize, Color lifeColor, Color deathColor, bool visible)
+        public BasicEntity(int posX, int posY, int entitySize, Bitmap lifeImage, Bitmap deathImage, bool visible)
         {
             this.posX = posX;
             this.posY = posY;
             this.visible = visible;
-            this.lifeColor = lifeColor;
-            this.deathColor = deathColor;
+            this.lifeImage = lifeImage;
+            this.deathImage = deathImage;
             this.entitySize = entitySize;
 
-            gg = new GameGraphics(lifeColor, posX, posY, entitySize, false);
+            gg = new GameGraphics(posX, posY, entitySize, true, lifeImage);
             //SetPosition(posX,posY);
         }
 
@@ -32,11 +32,7 @@ namespace EarlyLateGame.Entities
         {
             if (dead)
             {
-                gg.filling = deathColor;
-            }
-            else if (!visible)
-            {
-                gg.filling = GameVariables.InVisibleColor;
+                gg.SetRenderPositionF(posX, posY, entitySize, true, deathImage);
             }
         }
 
@@ -46,13 +42,13 @@ namespace EarlyLateGame.Entities
             this.posY = posY;
         }
 
-        public void SetDeathColor(Color color)
+        public void SetDeathTexture(Bitmap image)
         {
-            deathColor = color;
+            deathImage = image;
         }
-        public void SetLiveColor(Color color)
+        public void SetLiveTexture(Bitmap image)
         {
-            lifeColor = color;
+            lifeImage = image;
         }
 
         public virtual void SetVisible(bool visible)

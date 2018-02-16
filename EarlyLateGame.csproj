@@ -49,7 +49,7 @@
     <Compile Include="Entities\BasicEntity.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="GameObjects\Ground.cs" />
-    <Compile Include="GameObjects\ViewZone.cs" />
+    <Compile Include="GameObjects\ControlZone.cs" />
     <Compile Include="Game\GameGraphics.cs" />
     <Compile Include="Game\GameVariables.cs" />
     <Compile Include="Game\PlayerControl.cs" />
@@ -59,7 +59,6 @@
     <Compile Include="Map1.Designer.cs">
       <DependentUpon>Map1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Entities\EnemyMob.cs" />
     <Compile Include="Entities\Monster.cs" />
     <Compile Include="Game\MainProgramStarter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,7 +91,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Textures\" />
+    <Content Include="READMEZmeny.txt" />
+    <Content Include="Textures\Entities\EnemyPlayer\DeadEnemyPlayer.png" />
+    <Content Include="Textures\Entities\EnemyPlayer\LiveEnemyPlayer.png" />
+    <Content Include="Textures\Entities\Monster\DeadMonster.png" />
+    <Content Include="Textures\Entities\Monster\LiveMonster.png" />
+    <Content Include="Textures\Entities\Player\DeadPlayer.png" />
+    <Content Include="Textures\Entities\Player\LivePlayer.png" />
+    <Content Include="Textures\GameObjects\Ground.png" />
+    <Content Include="Textures\GameObjects\Rock.png" />
+    <Content Include="Textures\GameObjects\Tree\ChoppedTree.png" />
+    <Content Include="Textures\GameObjects\Tree\GrowingTree.png" />
+    <Content Include="Textures\GameObjects\Tree\Tree.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

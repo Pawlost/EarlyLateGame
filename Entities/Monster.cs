@@ -9,7 +9,7 @@ namespace EarlyLateGame.Entities
         public int health = GameVariables.monsterAverageHealth;
         private int damege = GameVariables.monsterAveregeDamage; 
 
-        public Monster(int posX, int posY) : base(posX, posY,entitySize:GameVariables.entitiSquareSize, lifeColor:GameVariables.MonsterColor,deathColor:GameVariables.DeadEntity,visible:true)
+        public Monster(int posX, int posY) : base(posX, posY,entitySize:GameVariables.entitiSquareSize, lifeImage:GameVariables.LiveMonsterImage,deathImage:GameVariables.DeadMonsterImage,visible:true)
         {
             this.posX = posX;
             this.posY = posY;

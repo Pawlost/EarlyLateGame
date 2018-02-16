@@ -58,7 +58,7 @@ namespace EarlyLateGame.Game
             {
                 for (int x = 0; x < GameVariables.mapSize; x++)
                 {
-                    ViewZone view = overallMap[x, y].viewZone;
+                    ControlZone view = overallMap[x, y].viewZone;
 
                     float posX = view.gg.centrePositionF.X + view.gg.centrePositionF.Width;
                     float posY = view.gg.centrePositionF.Y + view.gg.centrePositionF.Height;

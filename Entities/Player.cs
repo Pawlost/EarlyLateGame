@@ -12,9 +12,10 @@ namespace EarlyLateGame.Entities
         public int choppedTree = 0;
         public bool isSelected = false;
         private static int damage = GameVariables.playerAverageDamage;
+
         private Ground[,] overallMap = new Ground[10, 10];
 
-        public Player(int posX, int posY) : base(posX, posY, entitySize: GameVariables.entitiSquareSize, lifeColor: GameVariables.PlayerColor, deathColor: GameVariables.DeadEntity, visible: true)
+        public Player(int posX, int posY) : base(posX, posY, entitySize: GameVariables.entitiSquareSize, lifeImage: GameVariables.LivePlayerImage, deathImage: GameVariables.DeadPlayerImage, visible: true)
         {
             this.posX = posX;
             this.posY = posY;
@@ -28,18 +29,18 @@ namespace EarlyLateGame.Entities
         {
             this.overallMap = overallMap;
             //argument
-            if (!dead && isSelected == true)
+            if (!dead && isSelected)
             {
-                this.isSelected = true;
-                gg.filling = Color.Black;
-                gg.RenderSelect(g, 3);
+                this.isSelected = isSelected;
+                gg.SetRenderPositionF(posX, posY, entitySize, true, lifeImage);
+                gg.RenderSelect(g, isSelected);
                 View(g);
             }
             else
             {
-                this.isSelected = false;
-                gg.filling = GameVariables.PlayerColor;
-                gg.RenderSelect(g, 3);
+                this.isSelected = isSelected;
+                gg.SetRenderPositionF(posX, posY, entitySize, true, lifeImage);
+                gg.RenderSelect(g, isSelected);
                 View(g);
                 gg.CentreRenderFill(g);
             }
@@ -53,7 +54,7 @@ namespace EarlyLateGame.Entities
         {
             posX = moveX;
             posY = moveY;
-            gg.SetRenderPositionF(posX, posY, GameVariables.entitiSquareSize, true);
+            gg.SetRenderPositionF(posX, posY, entitySize, true, lifeImage);
             gg.CentreRenderFill(g);
             View(g);
         }
