@@ -7,56 +7,64 @@ namespace EarlyLateGame.Game
     //Color.FromArgb(125,0,0,0)); soo cool
     public class GameGraphics
     {
-        private static float groundSize = GameVariables.groundSquareSize; //taking value from global values
-        public RectangleF centrePositionF; //position for entities in center of field
-        public RectangleF positionSizeF; //position of rectangle from top-left side (float rectangel)
+        private static int groundSize = GameVariables.groundSquareSize; //taking value from global values
   
-        private int posX;
-        private int posY;
-        private int rectangleSize;
+        public int posX;
+        public int posY;
+        public float centrePosX;
+        public float centrePosY;
         private bool isCentred;
 
-        private TextureBrush objectTexture;
-        private Image image;
+        public Image image;
 
-        public GameGraphics(int posX, int posY, int rectangleSize, bool isCentred, Bitmap image)
-        { 
-            SetRenderPositionF(posX, posY, rectangleSize, isCentred, image);
-        }
-        public void SetRenderPositionF(int posX, int posY, int rectangleSize, bool isCentred, Bitmap image) {
-            this.posX = posX;
-            this.posY = posY;
-            this.rectangleSize = rectangleSize;
+        public GameGraphics(int posX, int posY, bool isCentred, Image image)
+        {
+            this.posX = posX * groundSize;
+            this.posY = posY * groundSize;
+            centrePosX = this.posX + (groundSize - image.Width) / 2;
+            centrePosY = this.posY + (groundSize - image.Height) / 2;
             this.image = image;
-
-            positionSizeF = new RectangleF(posX * groundSize, posY * groundSize, rectangleSize, rectangleSize);
-            objectTexture = new TextureBrush(image, positionSizeF);
-            if (isCentred)
-            {
-                centrePositionF = new RectangleF(positionSizeF.X + (groundSize - rectangleSize) / 2, positionSizeF.Y + (groundSize - rectangleSize) / 2, rectangleSize, rectangleSize);
-                objectTexture = new TextureBrush(image, centrePositionF);
-            }
+            this.isCentred = isCentred;
         }
+        //render rectangle
         public virtual void RenderFill(Graphics g)
         {
-            g.FillRectangle(objectTexture, positionSizeF);
+            g.DrawImage(image, posX, posY);
         }
+        //render object in center of rectangle
         public virtual void CentreRenderFill(Graphics g)
         {
-            SetRenderPositionF(posX, posY, rectangleSize, true, image);
-            g.FillRectangle(objectTexture, centrePositionF);
+            g.DrawImage(image,centrePosX, centrePosY);
         }
-        public virtual void RenderSelect(Graphics g, bool select) {
-            if (select) {
+        //for selected players
+        public virtual void RenderSelect(Graphics g, bool select)
+        {
+            if (select)
+            {
                 Pen p = new Pen(Color.Black, GameVariables.selectLineSize);
-                g.DrawLine(p, centrePositionF.X, centrePositionF.Y, centrePositionF.X + centrePositionF.Width, centrePositionF.Y + centrePositionF.Height);
+                g.DrawLine(p,centrePosX, centrePosY, centrePosX + image.Width, centrePosY + image.Height);
             }
-            else{
+            else
+            {
                 if (isCentred)
+                {
                     CentreRenderFill(g);
+                }
                 else
-                    RenderFill(g);             
-            }       
+                {
+                    RenderFill(g);
+                }
+            }
+        }
+        public void setImage(Image image)
+        {
+            this.image = image;
+        }
+        public void setPosition(int posX, int posY) {
+            this.posX = posX * groundSize;
+            this.posY = posY * groundSize;
+            centrePosX = this.posX + (groundSize - image.Width) / 2;
+            centrePosY = this.posY + (groundSize - image.Height) / 2;
         }
     }
 }

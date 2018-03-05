@@ -62,3 +62,13 @@ C:\Users\Pavel\Desktop\MojeHry\Projects\EarlyLateGame\obj\Debug\EarlyLateGame.Ma
 C:\Users\Pavel\Desktop\MojeHry\Projects\EarlyLateGame\obj\Debug\EarlyLateGame.Properties.Resources.resources
 C:\Users\Pavel\Desktop\MojeHry\Projects\EarlyLateGame\obj\Debug\EarlyLateGame.csproj.GenerateResource.Cache
 C:\Users\Pavel\Desktop\MojeHry\Projects\EarlyLateGame\bin\Debug\Textures\player.png
+C:\Users\balda\Desktop\MyProjects\EarlyLateGame\obj\Debug\EarlyLateGame.csprojResolveAssemblyReference.cache
+C:\Users\balda\Desktop\MyProjects\EarlyLateGame\obj\Debug\EarlyLateGame.Map1.resources
+C:\Users\balda\Desktop\MyProjects\EarlyLateGame\obj\Debug\EarlyLateGame.Properties.Resources.resources
+C:\Users\balda\Desktop\MyProjects\EarlyLateGame\obj\Debug\EarlyLateGame.csproj.GenerateResource.Cache
+C:\Users\balda\Desktop\MyProjects\EarlyLateGame\obj\Debug\EarlyLateGame.csproj.CoreCompileInputs.cache
+C:\Users\balda\Desktop\MyProjects\EarlyLateGame\obj\Debug\EarlyLateGame.exe
+C:\Users\balda\Desktop\MyProjects\EarlyLateGame\obj\Debug\EarlyLateGame.pdb
+C:\Users\balda\Desktop\MyProjects\EarlyLateGame\bin\Debug\EarlyLateGame.exe.config
+C:\Users\balda\Desktop\MyProjects\EarlyLateGame\bin\Debug\EarlyLateGame.exe
+C:\Users\balda\Desktop\MyProjects\EarlyLateGame\bin\Debug\EarlyLateGame.pdb

@@ -28,7 +28,7 @@ namespace EarlyLateGame.Game
         //public static Color BackgroundColor = Color.Gold;
 
         //TEXTURES
-        private static string baseTextureFolder = AppDomain.CurrentDomain.BaseDirectory + "Tsextures/";
+        private static string baseTextureFolder = "C:/Users/balda/Desktop/MyProjects/EarlyLateGame/Textures/";
         private static string gameObjectsTextureFolder = baseTextureFolder + "GameObjects/";
         private static string entitiesTextureFolder = baseTextureFolder + "Entities/";
 
@@ -36,22 +36,22 @@ namespace EarlyLateGame.Game
         private static string enemyPlayerTextureFolder = entitiesTextureFolder + "EnemyPlayer/";
         private static string monsterTextureFolder = entitiesTextureFolder + "Monster/";
 
-        private static string treeTextureFolder = entitiesTextureFolder + "Tree/";
+        private static string treeTextureFolder = gameObjectsTextureFolder + "Tree/";
+    
+        public static Image LivePlayerImage = Image.FromFile(playerTextureFolder + "LivePlayer.png");
+        public static Image LiveEnemyPlayerImage = Image.FromFile(enemyPlayerTextureFolder + "LiveEnemyPlayer.png", false);
+        public static Image LiveMonsterImage = Image.FromFile(monsterTextureFolder + "LiveMonster.png", false);
 
-        public static Bitmap LivePlayerImage = (Bitmap)Image.FromFile(playerTextureFolder + "LivePlayer.png");
-        public static Bitmap LiveEnemyPlayerImage = (Bitmap)Image.FromFile(enemyPlayerTextureFolder + "LiveEnemyPlayer.png", false);
-        public static Bitmap LiveMonsterImage = (Bitmap)Image.FromFile(monsterTextureFolder + "LiveMonster.png", false);
+        public static Image DeadPlayerImage = Image.FromFile(playerTextureFolder + "DeadPlayer.png");
+        public static Image DeadEnemyPlayerImage = Image.FromFile(enemyPlayerTextureFolder + "DeadEnemyPlayer.png", false);
+        public static Image DeadMonsterImage = Image.FromFile(monsterTextureFolder + "DeadMonster.png", false);
 
-        public static Bitmap DeadPlayerImage = (Bitmap)Image.FromFile(playerTextureFolder + "DeadPlayer.png");
-        public static Bitmap DeadEnemyPlayerImage = (Bitmap)Image.FromFile(enemyPlayerTextureFolder + "DeadEnemyPlayer.png", false);
-        public static Bitmap DeadMonsterImage = (Bitmap)Image.FromFile(monsterTextureFolder + "DeadMonster.png", false);
+        public static Image GroundTexture = Image.FromFile(gameObjectsTextureFolder + "Ground.png", false);
+        public static Image ControlZoneImage = Image.FromFile(gameObjectsTextureFolder + "ControlZone.png", false);
+        public static Image TreeImage = Image.FromFile(treeTextureFolder + "Tree.png", false);
 
-        public static Bitmap GroundTexture = (Bitmap)Image.FromFile(gameObjectsTextureFolder + "Ground.png", false);
-        public static Bitmap ControlZoneImage = (Bitmap)Image.FromFile(gameObjectsTextureFolder + "ControlZone.png", false);
-        public static Bitmap TreeImage = (Bitmap)Image.FromFile(treeTextureFolder + "Tree.png", false);
+        public static Image RockImage = Image.FromFile(gameObjectsTextureFolder + "Rock.png", false);
 
-        public static Bitmap RockImage = (Bitmap)Image.FromFile(baseTextureFolder + "Rock.png", false);
-
-        public static Bitmap InvisibleTexture = GroundTexture;
+        public static Image InvisibleTexture = GroundTexture;
     }
 }

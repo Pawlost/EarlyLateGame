@@ -11,13 +11,13 @@ namespace EarlyLateGame.GameObjects
     class ControlZone
     {
         public GameGraphics gg;
-        private Bitmap textureImage;
+        private Image textureImage;
 
         private int posX;
         private int posY;
         public bool visible;
 
-        public ControlZone(int posX, int posY, bool visible, Bitmap textureImage, int entitySize)
+        public ControlZone(int posX, int posY, bool visible, Image textureImage, int entitySize)
         {
             this.posX = posX;
             this.posY = posY;
@@ -25,19 +25,19 @@ namespace EarlyLateGame.GameObjects
 
             this.visible = visible;
 
-            gg = new GameGraphics(posX, posY, entitySize, true, textureImage);
+            gg = new GameGraphics(posX, posY, true, textureImage);
         }
-        public virtual void CanView(Graphics g, bool visible)
+        public virtual void canView(Graphics g, bool visible)
         {
             this.visible = visible;
             if (visible)
             {
-                gg.filling = filling;
+                gg.setImage(GameVariables.ControlZoneImage);
                 gg.CentreRenderFill(g);
             }
             else
             {
-                gg.filling = GameVariables.GroundColor;
+                gg.setImage(GameVariables.GroundTexture);
                 gg.CentreRenderFill(g);
             }
         }

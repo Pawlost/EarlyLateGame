@@ -21,7 +21,7 @@ namespace EarlyLateGame.GameObjects
 
         public Ground(int posX, int posY)
         {
-            gg = new GameGraphics(GameVariables.GroundColor, posX, posY, GameVariables.groundSquareSize, false);
+            gg = new GameGraphics( posX, posY, false, GameVariables.GroundTexture);
 
             this.posX = posX;
             this.posY = posY;   
@@ -30,16 +30,16 @@ namespace EarlyLateGame.GameObjects
         {
             if (player != null)
             {
-                player.gg.filling = GameVariables.PlayerColor;
+                player.gg.setImage(GameVariables.LivePlayerImage);
                 player.gg.CentreRenderFill(g);
                 this.player = player;
                 isPlayerHere = true;
             }
             else
             {
-                this.player.gg.filling = GameVariables.GroundColor;
+                this.player.gg.setImage(GameVariables.GroundTexture);
                 this.player.gg.CentreRenderFill(g);
-                this.player.gg.RenderSelect(g, 3);
+                this.player.gg.RenderSelect(g, true);
                 this.player = null;
                 isPlayerHere = false;
             }
@@ -49,7 +49,7 @@ namespace EarlyLateGame.GameObjects
             this.isObjectHere = isObjectHere;
             if (isObjectHere) {
                 if (tree != null) {
-                    tree.gg.filling = GameVariables.TreeColor;
+                    tree.gg.setImage(GameVariables.TreeImage);
                     tree.gg.CentreRenderFill(g);
                 }
             }

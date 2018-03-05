@@ -15,6 +15,7 @@ namespace EarlyLateGame.Entities
 
         private Ground[,] overallMap = new Ground[10, 10];
 
+
         public Player(int posX, int posY) : base(posX, posY, entitySize: GameVariables.entitiSquareSize, lifeImage: GameVariables.LivePlayerImage, deathImage: GameVariables.DeadPlayerImage, visible: true)
         {
             this.posX = posX;
@@ -32,17 +33,18 @@ namespace EarlyLateGame.Entities
             if (!dead && isSelected)
             {
                 this.isSelected = isSelected;
-                gg.SetRenderPositionF(posX, posY, entitySize, true, lifeImage);
+                gg.setImage(lifeImage);
+                gg.CentreRenderFill(g);
                 gg.RenderSelect(g, isSelected);
                 View(g);
             }
             else
             {
                 this.isSelected = isSelected;
-                gg.SetRenderPositionF(posX, posY, entitySize, true, lifeImage);
+                gg.setImage(lifeImage);
                 gg.RenderSelect(g, isSelected);
-                View(g);
                 gg.CentreRenderFill(g);
+                View(g);
             }
         }
 
@@ -54,19 +56,20 @@ namespace EarlyLateGame.Entities
         {
             posX = moveX;
             posY = moveY;
-            gg.SetRenderPositionF(posX, posY, entitySize, true, lifeImage);
+            gg.setImage(lifeImage);
+            gg.setPosition(moveX, moveY);
             gg.CentreRenderFill(g);
             View(g);
         }
 
-        public void Hurt(int damage)
+        public void Hurt(int damage, Graphics g)
         {
             health -= damage;
             if (health <= 0)
             {
                 dead = true;
                 isSelected = false;
-                IsDying();
+                IsDying(g);
             }
         }
         public virtual void View(Graphics g)
@@ -78,7 +81,7 @@ namespace EarlyLateGame.Entities
                     if (posX + x >= 0 && posY + y >= 0 && posX + x < GameVariables.mapSize && posY + y < GameVariables.mapSize && isSelected)
                     {
                         if (posX + x != posX || posY + y != posY)
-                            overallMap[posX + x, posY + y].viewZone.CanView(g, true);
+                            overallMap[posX + x, posY + y].viewZone.canView(g, true);
                     }
                 }
             }

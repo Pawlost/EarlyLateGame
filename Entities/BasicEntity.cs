@@ -12,10 +12,10 @@ namespace EarlyLateGame.Entities
         public bool visible;
 
         public GameGraphics gg;
-        protected Bitmap lifeImage;
-        protected Bitmap deathImage;
+        protected Image lifeImage;
+        protected Image deathImage;
 
-        public BasicEntity(int posX, int posY, int entitySize, Bitmap lifeImage, Bitmap deathImage, bool visible)
+        public BasicEntity(int posX, int posY, int entitySize, Image lifeImage, Image deathImage, bool visible)
         {
             this.posX = posX;
             this.posY = posY;
@@ -24,15 +24,16 @@ namespace EarlyLateGame.Entities
             this.deathImage = deathImage;
             this.entitySize = entitySize;
 
-            gg = new GameGraphics(posX, posY, entitySize, true, lifeImage);
+            gg = new GameGraphics(posX, posY, true, lifeImage);
             //SetPosition(posX,posY);
         }
 
-        public void IsDying()
+        public void IsDying(Graphics g)
         {
             if (dead)
             {
-                gg.SetRenderPositionF(posX, posY, entitySize, true, deathImage);
+                gg.setImage(deathImage);
+                gg.CentreRenderFill(g);
             }
         }
 

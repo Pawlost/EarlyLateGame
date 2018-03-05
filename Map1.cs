@@ -16,43 +16,38 @@ namespace EarlyLateGame
         public Graphics gameGraphic;
         private Player player;
         private Player enemyPlayer;
-        private static GameGraphics background = new GameGraphics(GameVariables.BackgroundColor, 0, 0, GameVariables.mapSize * (GameVariables.groundSquareSize + GameVariables.borderSize), true);
         Ground[,] OverallMap = new Ground[GameVariables.mapSize, GameVariables.mapSize];
         List<Tree> Wood = new List<Tree>();
-
+        
+        //Constructor, which start basic function
         public Map1()
         {
+            //Creates windown
             InitializeComponent();
+
+            //Create NPC
             CreateEntities();
+            //Set Up map
             CreateMap();
         }
+
+        //Create ground
         public void CreateMap()
         {
             for (int y = 0; y < GameVariables.mapSize; y++)
             {
                 for (int x = 0; x < GameVariables.mapSize; x++)
                 {
+                    //Creates new ground at positions in map
                     Ground newGround = new Ground(x, y);
-                    newGround.viewZone = new ControlZone(x, y, false, GameVariables.ZoneColor, GameVariables.zoneSquareSize);
+                    newGround.viewZone = new ControlZone(x, y, false, GameVariables.ControlZoneImage, GameVariables.zoneSquareSize);
                     OverallMap[x, y] = newGround;
-                }
-            }
-        }
-        public void Render_map(Graphics gameGraphic)
-        {
-            for (int y = 0; y < GameVariables.mapSize; y++)
-            {
-                for (int x = 0; x < GameVariables.mapSize; x++)
-                {
-                    OverallMap[x, y].gg.RenderFill(gameGraphic);
-                    OverallMap[x, y].viewZone = new ControlZone(x, y, false, GameVariables.ZoneColor, GameVariables.zoneSquareSize);
                 }
             }
         }
         public void Map1_Paint(object sender, PaintEventArgs e)
         {
             gameGraphic = CreateGraphics();
-            background.RenderFill(gameGraphic);
                        
             Render_map(gameGraphic);
             RenderEntitiesPosition(gameGraphic);
@@ -70,14 +65,27 @@ namespace EarlyLateGame
             //Trees
             foreach (Tree tree in Wood)
             {
-                OverallMap[tree.posX, tree.posY].tree = tree;
-                OverallMap[tree.posX, tree.posY].GameObjectOnGround(true, gameGraphic);
+               OverallMap[tree.posX, tree.posY].tree = tree;
+               OverallMap[tree.posX, tree.posY].GameObjectOnGround(true, gameGraphic);
             }
-            //Player
+           // Player
             OverallMap[player.posX, player.posY].PlayerOnGround(player, gameGraphic);
             //EnemyPlayer
             OverallMap[enemyPlayer.posX, enemyPlayer.posY].PlayerOnGround(enemyPlayer, gameGraphic);
-        }    
+        
+        }
+
+        public void Render_map(Graphics gameGraphic)
+        {
+            for (int y = 0; y < GameVariables.mapSize; y++)
+            {
+                for (int x = 0; x < GameVariables.mapSize; x++)
+                {
+                    OverallMap[x, y].gg.RenderFill(gameGraphic);
+                    OverallMap[x, y].viewZone = new ControlZone(x, y, false, GameVariables.ControlZoneImage, GameVariables.zoneSquareSize);
+                }
+            }
+        }
         ////////////////////////////////////
         public static void setText(string text)
         {
@@ -85,12 +93,12 @@ namespace EarlyLateGame
         private void Map1_MouseClick(object sender, MouseEventArgs control)
         {
             pc = new PlayerControl(player);
-            int overallMapSize = GameVariables.mapSize * (GameVariables.groundSquareSize + GameVariables.borderSize);
+            int overallMapSize = GameVariables.mapSize * (GameVariables.groundSquareSize + GameVariables.mapSize);
             if (control.Button == MouseButtons.Left && control.Location.X <= overallMapSize && control.Location.Y <= overallMapSize)
             {
                 if (pc.player.isSelected == false)
                 {
-                    pc.SelectPlayer(OverallMap, gameGraphic, control.Location);
+                    pc.selectPlayer(OverallMap, gameGraphic, control.Location);
                 } else
                 {
                     if (pc.CanMove(OverallMap, control.Location) == true && pc.PlayerLocation(control.Location) == false)
@@ -98,7 +106,7 @@ namespace EarlyLateGame
                         pc.MovePlayer(OverallMap, gameGraphic);
                     }else if (pc.PlayerLocation(control.Location) == true)
                     {
-                        pc.SelectPlayer(OverallMap, gameGraphic, control.Location);
+                        pc.selectPlayer(OverallMap, gameGraphic, control.Location);
                     }
                      else
                     {

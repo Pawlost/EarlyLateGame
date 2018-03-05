@@ -8,7 +8,6 @@ namespace EarlyLateGame.Game
     class PlayerControl
     {
         public Player player;
-        private Point playerLocation;
 
         private int helpPosX;
         private int helpPosY;
@@ -29,27 +28,27 @@ namespace EarlyLateGame.Game
                 overallMap[helpPosX, helpPosY].tree = null;
             }
         }
-        public virtual void SelectPlayer(Ground[,] overallMap, Graphics g, Point mouseLocation)
+        public virtual void selectPlayer(Ground[,] overallMap, Graphics g, Point mouseLocation)
         {
             if (PlayerLocation(mouseLocation))
             {
                 if (!overallMap[player.posX, player.posY].player.isSelected)
                 {
-                    ReworkMap(overallMap, g);
+                    reworkMap(overallMap, g);
                     overallMap[player.posX, player.posY].player.Select(true, overallMap, g);
                 }
                 else
                 {
-                    ReworkMap(overallMap, g);
+                    reworkMap(overallMap, g);
                     overallMap[player.posX, player.posY].player.Select(false, overallMap, g);    
                 }
             }
         }
         public bool PlayerLocation(Point mouseLocation)
         {
-            float posX = player.gg.centrePositionF.X + player.gg.centrePositionF.Width;
-            float posY = player.gg.centrePositionF.Y + player.gg.centrePositionF.Height;
-            return mouseLocation.X > player.gg.centrePositionF.X && mouseLocation.X < posX && mouseLocation.Y > player.gg.centrePositionF.Y && mouseLocation.Y < posY;
+            float changedPosX = player.gg.centrePosX + player.gg.image.Width;
+            float changedPosY = player.gg.centrePosY + player.gg.image.Height;
+            return mouseLocation.X > player.gg.centrePosX && mouseLocation.X < changedPosX && mouseLocation.Y > player.gg.centrePosY && mouseLocation.Y < changedPosY;
         }
 
         public bool CanMove(Ground[,] overallMap, Point mouseLocation)
@@ -60,10 +59,10 @@ namespace EarlyLateGame.Game
                 {
                     ControlZone view = overallMap[x, y].viewZone;
 
-                    float posX = view.gg.centrePositionF.X + view.gg.centrePositionF.Width;
-                    float posY = view.gg.centrePositionF.Y + view.gg.centrePositionF.Height;
+                    float changedPosX = view.gg.posX + view.gg.image.Width;
+                    float changedPosY = view.gg.posY + view.gg.image.Height;
 
-                    if (mouseLocation.X > view.gg.centrePositionF.X && mouseLocation.X < posX && mouseLocation.Y > view.gg.centrePositionF.Y && mouseLocation.Y < posY)
+                    if (mouseLocation.X > view.gg.posX && mouseLocation.X < changedPosX && mouseLocation.Y > view.gg.posY && mouseLocation.Y < changedPosY)
                     {
                         if (view.visible && overallMap[x, y].isPlayerHere == false && overallMap[x, y].isObjectHere == false)
                         {
@@ -85,19 +84,18 @@ namespace EarlyLateGame.Game
         {
             player.Select(false, overallMap, g);
             overallMap[player.posX, player.posY].PlayerOnGround(null, g);
-            ReworkMap(overallMap, g);
+            reworkMap(overallMap, g);
             player.MoveToPosition(overallMap[helpPosX, helpPosY].posX, overallMap[helpPosX, helpPosY].posY, g);
-            player.gg.CentreRenderFill(g);
             overallMap[helpPosX, helpPosY].PlayerOnGround(player, g);
         }
 
-        public void ReworkMap(Ground[,] overallMap, Graphics g)
+        public void reworkMap(Ground[,] overallMap, Graphics g)
         {
             for (int y = 0; y < GameVariables.mapSize; y++)
             {
                 for (int x = 0; x < GameVariables.mapSize; x++)
                 {
-                    overallMap[x, y].viewZone.CanView(g, false);
+                    overallMap[x, y].viewZone.canView(g, false);
                   
                     if (overallMap[x, y].isPlayerHere)
                     {
