@@ -10,7 +10,7 @@ namespace EarlyLateGame.Game
         public static int zoneSquareSize = 55;
         public static int selectLineSize = 3;
 
-        public static int mapSize = 10;
+        public static int mapSize = 100;
         public static int turnsToEnd = 60;
         public static int curruntTurn = 1;
 
